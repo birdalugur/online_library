@@ -28,4 +28,4 @@ class Book(BaseModel):
     person: Union[Person, None] = None
 
     class Config:
-        fields = {'id': {'exclude': True}}
+        fields = {'id': {'exclude_defaults': True}}

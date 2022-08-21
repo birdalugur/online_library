@@ -25,4 +25,4 @@ def list_books():
     for book in all_books:
         # book['_id'] = str(book['_id'])
         book_tables.append(Book(**book))
-    return list(book_tables)
+    return book_tables
