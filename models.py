@@ -29,3 +29,4 @@ class Book(BaseModel):
 
     class Config:
         fields = {'id': {'exclude_defaults': True}}
+        # json_encoders = {BsonObjectId: str}

@@ -7,7 +7,7 @@ Accept: application/json
 ###
 
 # get information for a specific book
-GET http://127.0.0.1:8000/books/?_id=345435
+GET http://127.0.0.1:8000/books/?id=630e739ce72dce20e544aaa2
 Accept: application/json
 
 ###
@@ -18,8 +18,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "Olasılıksız",
-  "author": "Adam Fawer"
+  "title": "yakup",
+  "author": "yakup Fawer"
 }
 
 ###
