@@ -15,9 +15,13 @@ class PydanticObjectId(BsonObjectId):
         return str(v)
 
 
-class Person(BaseModel):
+class User(BaseModel):
+    id: Union[PydanticObjectId, None] = Field(alias='_id')
     name: str
-    book_id: Union[PydanticObjectId, None] = None
+    surname: str
+
+    class Config:
+        fields = {'id': {'exclude_defaults': True}}
 
 
 class Book(BaseModel):
@@ -25,7 +29,7 @@ class Book(BaseModel):
     author: str
     id: Union[PydanticObjectId, None] = Field(alias='_id')
     isRent: Union[bool, None] = False
-    person: Union[Person, None] = None
+    person: Union[User, None] = None
 
     class Config:
         fields = {'id': {'exclude_defaults': True}}

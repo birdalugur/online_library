@@ -18,8 +18,20 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "title": "yakup",
-  "author": "yakup Fawer"
+  "title": "The C Programming Language. 2nd Edition",
+  "author": "Dennis Ritchie, Brian Kernighan"
+}
+
+###
+
+
+POST http://127.0.0.1:8000/user/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "uğur",
+  "surname": "eren"
 }
 
 ###

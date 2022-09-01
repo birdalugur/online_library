@@ -8,7 +8,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from config import mdb_connection_string, redis_url
 from bson.objectid import ObjectId
-from models import Book
+from models import Book, User
 
 app = FastAPI()
 redis = aioredis.from_url(redis_url, decode_responses=True)
@@ -17,6 +17,7 @@ client = AsyncIOMotorClient(mdb_connection_string)
 
 library = client.library
 book_docs = library.book_docs
+user_docs = library.users
 
 
 async def get_cache(_id: str):
@@ -84,8 +85,9 @@ async def get_all_books():
         all_books = await book_docs.find().to_list(length)
         book_tables = [Book(**doc).dict() for doc in all_books]
 
+        await redis.flushall()
         await mset_cache(book_tables)
-        await redis.set("cachecontrol", 1, ex=5 * 60)
+        await redis.set("cachecontrol", 1, ex=20)
 
     return {"isCached": isCached, "data": book_tables}
 
@@ -97,3 +99,9 @@ async def get_books(_id: Union[str, None] = Query(default=None, alias="id")):
     else:
         res = await get_all_books()
     return res
+
+
+@app.post('/user/')
+async def create_user(user: User):
+    result = await user_docs.insert_one(user.dict())
+    return str(result.inserted_id)
